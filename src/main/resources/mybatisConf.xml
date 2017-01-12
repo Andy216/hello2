@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+<configuration>
+
+	<settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+<!--         <setting name="logImpl" value="LOG4J"/> -->
+    </settings>
+
+    <typeAliases>
+    	<typeAlias alias="filtro" type="com.mkyong.common.util.Filtro"/>
+<!--     	<typeAlias alias="tipo" type="com.aqua.time.domain.Tipo"/> -->
+<!--     	<typeAlias alias="clie" type="com.aqua.time.domain.Cliente"/> -->
+<!--     	<typeAlias alias="usuaC" type="com.aqua.time.domain.UsuarioC"/> -->
+<!--     	<typeAlias alias="sist" type="com.aqua.time.domain.Sistema"/> -->
+<!--     	<typeAlias alias="atenc" type="com.aqua.time.domain.Atencion"/> -->
+<!--     	<typeAlias alias="docu" type="com.aqua.time.domain.Documento"/> -->
+<!--     	<typeAlias alias="docuSist" type="com.aqua.time.domain.DocumentoSistema"/> -->
+    	<typeAlias alias="usua" type="com.mkyong.common.domain.Usuario"/>
+    </typeAliases>
+ 
+    <mappers>
+<!-- 		<mapper resource="mapper/Tipo.xml"/>		 -->
+<!-- 		<mapper resource="mapper/Cliente.xml"/> -->
+<!-- 		<mapper resource="mapper/UsuarioC.xml"/> -->
+<!-- 		<mapper resource="mapper/Sistema.xml"/> -->
+<!-- 		<mapper resource="mapper/Atencion.xml"/> -->
+<!-- 		<mapper resource="mapper/Documento.xml"/> -->
+<!-- 		<mapper resource="mapper/DocuSist.xml"/> -->
+		<mapper resource="mapper/Usuario.xml"/>
+    </mappers>
+
+</configuration>

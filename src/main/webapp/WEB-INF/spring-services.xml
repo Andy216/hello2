@@ -13,7 +13,39 @@
 
     <context:annotation-config />
 
-    <context:component-scan base-package="com.mkyong.common.service"/>
+    <context:component-scan base-package="com.mkyong.common.service, com.mkyong.common.dao"/>
 
+<!-- db -->
+
+<!-- 		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+<!-- 		    <property name="jndiName" value="java:/comp/env/jdbc/mssql"/> -->
+<!-- 		</bean> -->
+
+
+	
+<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" > -->
+<!-- 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" /> -->
+<!-- 		<property name="url" value="jdbc:sqlserver://192.168.2.4\SQL2014R2;DatabaseName=db_ssk20160914" /> -->
+<!-- 		<property name="username" value="sa" /> -->
+<!-- 		<property name="password" value="" /> -->
+<!-- 	</bean> -->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	     <property name="driverClassName" value="org.postgresql.Driver" />
+	     <property name="url" value="jdbc:postgresql://ec2-107-20-193-74.compute-1.amazonaws.com:5432/da81i87t0umkt8?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory" />
+	     <property name="username" value="haooiqrdggtdkx" />
+	     <property name="password" value="427b1c1b194f68e15567b1e2fb6e24ed9956e238e163fc10ff2083e0ddc7c7da" />
+	 </bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">		
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  		<property name="dataSource" ref="dataSource" />
+  		<property name="configLocation" value="classpath:mybatisConf.xml" />
+	</bean>
 
 </beans>

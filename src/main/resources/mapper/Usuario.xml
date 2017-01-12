@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="usuarioXml">
+
+    <resultMap id="rslt" type="usua" >
+        <result property="id" column="ID"/>
+        <result property="rol" column="ROL"/>
+        <result property="nombre" column="NOMBRE"/>
+        <result property="usuario" column="USUARIO"/>
+        <result property="estado" column="ESTADO"/>
+    </resultMap>
+
+    <select id="getListTab" resultMap="rslt" parameterType="filtro" >
+        SELECT ID, ROL, NOMBRE, USUARIO,  ESTADO
+		from TBL_USUARIO 
+		<where>
+			<if test="nombre!=null and nombre!=''">
+	               and USUARIO like   '%' +#{nombre}+ '%'
+	        </if>	        
+        </where>
+    </select>
+    
+    <insert id="insert" parameterType="usua">	
+        INSERT INTO TBL_USUARIO (ROL, NOMBRE, USUARIO, CLAVE, ESTADO)
+		VALUES ( #{rol},#{nombre},#{usuario},#{clave},#{estado})
+    </insert>
+
+  	<update id="updateEstado" parameterType="usua">
+        UPDATE TBL_USUARIO
+        SET ESTADO = #{estado}
+        WHERE ID = #{id} 
+  	</update>
+
+  	<select id="get" resultMap="rslt" parameterType="usua" >
+        SELECT ID, NOMBRE, ESTADO
+		from TBL_USUARIO
+		<where>
+			<if test="id!=null and id!=''">
+	               and id = #{id}
+	        </if>
+	        <if test="usuario!=null and usuario!=''">
+	               and usuario = #{usuario}
+	        </if>	        
+        </where>
+    </select>
+    
+    <delete id="delete" parameterType="usua">
+        DELETE from TBL_USUARIO where ID = #{id}
+    </delete>
+    
+    <select id="validateAtencion" parameterType="usua" resultType='java.lang.Integer' >        
+        SELECT COUNT(*)
+        FROM TBL_ATENCION
+        where (USUARIO_REGISTRO = #{id} or USUARIO_MODIFICACION = #{id})
+	</select>
+	
+	<update id="updateClave" parameterType="usua">
+        UPDATE TBL_USUARIO
+        SET CLAVE = #{clave}
+        WHERE ID = #{id} 
+  	</update>
+   
+</mapper>
