@@ -11,13 +11,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.mkyong.common.domain.Usuario;
+import com.mkyong.common.service.UsuarioService;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
 	//final static Logger logger = Logger.getLogger(AuthenticationFilter.class);
 
-	/*@Autowired
-	private UsuarioService usuarioService;*/
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
@@ -30,8 +31,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
        try {
 					
-			Usuario usua = new Usuario(1,"DEMO");//usuarioService.get(new Usuario(username));
-			//if (usua != null) {
+			Usuario usua = usuarioService.get(new Usuario(username));
+			if (usua != null) {
 
 				request.getSession().setAttribute("USUA", new Usuario(usua.getId(), usua.getNombre()));
 				UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
@@ -39,9 +40,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		       setDetails(request, authRequest);
 		       return this.getAuthenticationManager().authenticate(authRequest);
 		       
-			/*} else {
+			} else {
 				throw new BadCredentialsException("Error de acceso");
-			}*/
+			}
 		} catch (Exception e) {
 			//logger.debug("mc AuthenticationSigafFilter Authentication " + e);
 			throw new BadCredentialsException("Error de acceso");
