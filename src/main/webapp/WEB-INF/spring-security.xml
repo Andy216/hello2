@@ -44,10 +44,13 @@
 
 	<authentication-manager id="authenticationManager"  alias="authenticationManager">
 		<authentication-provider>
-			<user-service>
-				<user name="admin" password="123456" authorities="ROLE_ADMIN" />
-				<user name="admin2" password="123456" authorities="ROLE_USER" />
-			</user-service>		
+<!-- 			<user-service> -->
+<!-- 				<user name="admin" password="123456" authorities="ROLE_ADMIN" /> -->
+<!-- 				<user name="admin2" password="123456" authorities="ROLE_USER" /> -->
+<!-- 			</user-service> -->
+			<jdbc-user-service data-source-ref="dataSource"
+               users-by-username-query="select USUARIO, CLAVE, ESTADO from TBL_USUARIO where USUARIO = ? and ESTADO = 1 "
+               authorities-by-username-query="select USUARIO, ROL from TBL_USUARIO where USUARIO = ? and ESTADO = 1 " />
 		</authentication-provider>
 	</authentication-manager>
 
